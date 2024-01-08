@@ -50,21 +50,22 @@ export function useMenuHandler(ref: React.RefObject<HTMLElement>) {
 	return { menuOpen, toggleMenu }
 }
 
-export function useNavEffects(ref: React.RefObject<HTMLElement>) {
+export function useNavEffects(refs: React.RefObject<HTMLElement>[]) {
 	const [shrink, setShrink] = React.useState(false)
 
 	React.useEffect(() => {
-		const navElement = ref.current
-		if (navElement) {
-			window.addEventListener('scroll', () => {
-				if (window.scrollY > 0) {
-					setShrink(true)
-				} else {
-					setShrink(false)
-				}
-			})
+		const handleScroll = () => {
+			setShrink(window.scrollY > 0)
 		}
-	}, [ref])
+
+		if (refs.some((ref) => ref.current)) {
+			window.addEventListener('scroll', handleScroll)
+		}
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [refs])
 
 	return { shrink }
 }

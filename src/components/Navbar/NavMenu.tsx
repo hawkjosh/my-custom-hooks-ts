@@ -5,28 +5,33 @@ import { IoMenu } from 'react-icons/io5'
 import { menuLinks } from '@/lib/lib'
 import { useNavEffects } from '@/utils/utils'
 
-function NavMenuIcon({ onClick }: { onClick: () => void }) {
+function MenuIcon({ onClick }: { onClick: () => void }) {
 	const menuIconRef = React.useRef<HTMLDivElement>(null)
-	const { shrink } = useNavEffects(menuIconRef)
+	const { shrink } = useNavEffects([menuIconRef])
 
 	return (
-		<IoMenu
-			ref={menuIconRef}
-			className={shrink ? 'NavMenuIcon navShrink' : 'NavMenuIcon'}
-			onClick={onClick}
-		/>
+		<div ref={menuIconRef}>
+			<IoMenu
+				className={shrink ? 'MenuIcon shrink' : 'MenuIcon'}
+				onClick={onClick}
+			/>
+		</div>
 	)
 }
 
-function NavMenuList({ onClick }: { onClick: () => void }) {
+function MenuList({ onClick }: { onClick: () => void }) {
+	const menuListRef = React.useRef<HTMLDivElement>(null)
+	const menuListItemRef = React.useRef<HTMLAnchorElement>(null)
+	const { shrink } = useNavEffects([menuListRef, menuListItemRef])
 	return (
-		<div className="NavMenuList">
+		<div ref={menuListRef} className={shrink ? 'MenuList shrink' : 'MenuList'}>
 			{menuLinks.map((link, index) => (
 				<Link
 					key={index}
+					ref={menuListItemRef}
 					href={link.href}
 					onClick={onClick}
-					className="NavMenuListItem"
+					className={shrink ? 'MenuListItem shrink' : 'MenuListItem'}
 				>
 					{link.name}
 				</Link>
@@ -42,10 +47,8 @@ export default function NavMenu() {
 
 	return (
 		<div ref={menuRef} className="NavMenu">
-			<NavMenuIcon onClick={() => toggleMenu()} />
-			{menuOpen && (
-				<NavMenuList onClick={() => toggleMenu()} />
-			)}
+			<MenuIcon onClick={() => toggleMenu()} />
+			{menuOpen && <MenuList onClick={() => toggleMenu()} />}
 		</div>
 	)
 }

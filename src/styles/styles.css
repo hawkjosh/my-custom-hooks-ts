@@ -21,37 +21,39 @@ html {
 		@apply w-full min-h-screen overflow-x-hidden font-Roboto text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-neutral-800;
 
 		& nav {
-			/* @apply w-full max-w-screen-xl mx-auto flex justify-between items-center bg-slate-600 p-3; */
 			@apply w-full max-w-screen-xl mx-auto flex justify-between items-center bg-slate-600 p-3 h-32 transition-all duration-300 sticky top-0;
-
-			&.navShrink {
+			&.shrink {
 				@apply h-16;
 			}
 
 			& .NavBrand {
-				@apply text-xl font-bold text-yellow-400 hover:text-yellow-500;
+				@apply text-3xl font-bold text-yellow-400 hover:text-slate-100 transition-all duration-300 hover:scale-110 hover:translate-x-4;
+				&.shrink {
+					@apply text-xl hover:translate-x-3;
+				}
 			}
-
-			/* & .MenuIcon {
-				@apply hover:text-yellow-400 text-4xl hover:scale-110 transition-all duration-300 cursor-pointer relative;
-			} */
 
 			& .NavMenu {
 				@apply relative;
 
-				& .NavMenuIcon {
+				& .MenuIcon {
 					@apply text-6xl hover:text-yellow-400 transition-all duration-300 hover:scale-110 cursor-pointer;
-
-					&.navShrink {
-						@apply text-3xl;
+					&.shrink {
+						@apply text-4xl;
 					}
 				}
 
-				& .NavMenuList {
-					@apply absolute flex flex-col gap-2 bg-slate-300 top-7 right-0 rounded-lg;
+				& .MenuList {
+					@apply absolute flex flex-col gap-2 bg-slate-300 top-16 right-0 rounded-lg transition-all duration-300;
+					&.shrink {
+						@apply top-9;
+					}
 
-					& .NavMenuListItem {
-						@apply text-slate-800 hover:text-slate-200 px-4 py-2 first:pt-4 last:pb-4 hover:bg-slate-400 first:hover:rounded-t-lg last:hover:rounded-b-lg;
+					& .MenuListItem {
+						@apply text-slate-800 hover:text-slate-200 px-4 py-2 first:pt-4 last:pb-4 hover:bg-slate-400 first:hover:rounded-t-lg last:hover:rounded-b-lg transition-all duration-300;
+						&.shrink {
+							@apply text-sm px-2 py-1 first:pt-2 last:pb-2;
+						}
 					}
 				}
 			}

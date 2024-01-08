@@ -7,11 +7,16 @@ import { useNavEffects } from '@/utils/utils'
 
 export default function Navbar() {
 	const navbarRef = React.useRef<HTMLDivElement>(null)
-	const { shrink } = useNavEffects(navbarRef)
+	const navBrandRef = React.useRef<HTMLAnchorElement>(null)
+	const { shrink } = useNavEffects([navbarRef, navBrandRef])
 
 	return (
-		<nav ref={navbarRef} className={shrink ? 'navShrink' : ''}>
-			<Link className="NavBrand" href="/">
+		<nav ref={navbarRef} className={shrink ? 'shrink' : ''}>
+			<Link
+				ref={navBrandRef}
+				className={shrink ? 'NavBrand shrink' : 'NavBrand'}
+				href="/"
+			>
 				My Custom Hooks
 			</Link>
 			<NavMenu />
