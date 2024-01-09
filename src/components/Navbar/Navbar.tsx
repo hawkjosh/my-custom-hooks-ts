@@ -2,24 +2,48 @@
 
 import React from 'react'
 import Link from 'next/link'
-import NavMenu from './NavMenu'
-import { useNavEffects } from '@/utils/utils'
+import { useMenuHandler, useNavEffects } from '@/utils/utils'
+import { IoMenu } from 'react-icons/io5'
+import { menuLinks } from '@/lib/lib'
 
 export default function Navbar() {
 	const navbarRef = React.useRef<HTMLDivElement>(null)
-	const navBrandRef = React.useRef<HTMLAnchorElement>(null)
-	const { shrink } = useNavEffects([navbarRef, navBrandRef])
+	const menuRef = React.useRef<HTMLDivElement>(null)
+	const { menuOpen, toggleMenu } = useMenuHandler(menuRef)
+	const { shrink } = useNavEffects(navbarRef)
+
+	const classWithShrink = (base: string) => (shrink ? `${base} shrink` : base)
 
 	return (
-		<nav ref={navbarRef} className={shrink ? 'shrink' : ''}>
+		<nav
+			ref={navbarRef}
+			className={classWithShrink('')}>
 			<Link
-				ref={navBrandRef}
-				className={shrink ? 'NavBrand shrink' : 'NavBrand'}
-				href="/"
-			>
+				className={classWithShrink('NavBrand')}
+				href='/'>
 				My Custom Hooks
 			</Link>
-			<NavMenu />
+			<div
+				ref={menuRef}
+				className='NavMenu'>
+				<IoMenu
+					className={classWithShrink('MenuIcon')}
+					onClick={() => toggleMenu()}
+				/>
+				{menuOpen && (
+					<div className={classWithShrink('MenuList')}>
+						{menuLinks.map((link, index) => (
+							<Link
+								key={index}
+								href={link.href}
+								onClick={() => toggleMenu()}
+								className={classWithShrink('MenuListItem')}>
+								{link.name}
+							</Link>
+						))}
+					</div>
+				)}
+			</div>
 		</nav>
 	)
 }
