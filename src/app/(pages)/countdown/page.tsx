@@ -20,40 +20,40 @@ export default function Countdown() {
 
 	return (
 		<main>
-			<PageTitle className="PageTitle" label="useCountdown Example" />
-			<PageContent className="PageContent">
-				<div className="flex items-center gap-4">
+			<PageTitle label='useCountdown Example' />
+			<PageContent>
+				<div className='flex items-center gap-4'>
 					<Icon
-						className="text-4xl hover:text-red-600"
+						className='text-4xl hover:text-red-600'
 						disabled={time === 0}
 						onClick={() => toggleTime('down')}
 						label={<IoRemoveCircleOutline />}
 					/>
-					<div className="text-2xl text-blue-500">{time} seconds</div>
+					<div className='text-2xl text-blue-500'>{time} seconds</div>
 					<Icon
-						className="text-4xl hover:text-green-600"
+						className='text-4xl hover:text-green-600'
 						onClick={() => toggleTime('up')}
 						label={<IoAddCircleOutline />}
 					/>
 				</div>
-				<div className="flex items-center gap-4">
+				<div className='flex items-center gap-4'>
 					<Button
-						className="text-lg hover:text-green-600 hover:border-green-600"
+						className='text-lg hover:text-green-600 hover:border-green-600'
 						disabled={isRunning || time === 0}
 						onClick={start}
-						label="Start"
+						label='Start'
 					/>
 					<Button
-						className="text-lg hover:text-red-600 hover:border-red-600"
+						className='text-lg hover:text-red-600 hover:border-red-600'
 						disabled={!isRunning}
 						onClick={stop}
-						label="Stop"
+						label='Stop'
 					/>
 					<Button
-						className="text-lg hover:text-yellow-600 hover:border-yellow-600"
+						className='text-lg hover:text-yellow-600 hover:border-yellow-600'
 						disabled={!isRunning && time === 0}
 						onClick={reset}
-						label="Reset"
+						label='Reset'
 					/>
 				</div>
 			</PageContent>
