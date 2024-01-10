@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-export function useMenuHandler(ref: React.RefObject<HTMLElement>) {
+export function useMenuEffects(ref: React.RefObject<HTMLElement>) {
 	const [menuOpen, setMenuOpen] = React.useState(false)
 
 	// Logic to open/close menu on click

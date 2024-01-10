@@ -1,7 +1,12 @@
 'use client'
 
 import useCountdown from '@/hooks/useCountdown'
-import { Button, Icon, PageContent, PageTitle } from '@/components/ui/basic'
+import {
+	CustomButton,
+	CustomContainer,
+	CustomIcon,
+	CustomTitle
+} from '@/components/ui/basic'
 import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5'
 import { type CountdownProps } from '@/types/types'
 
@@ -20,43 +25,43 @@ export default function Countdown() {
 
 	return (
 		<main>
-			<PageTitle label='useCountdown Example' />
-			<PageContent>
-				<div className='flex items-center gap-4'>
-					<Icon
-						className='text-4xl hover:text-red-600'
+			<CustomTitle label="useCountdown Example" />
+			<CustomContainer>
+				<div className="flex items-center gap-4">
+					<CustomIcon
+						className="text-4xl hover:text-red-600"
 						disabled={time === 0}
 						onClick={() => toggleTime('down')}
 						label={<IoRemoveCircleOutline />}
 					/>
-					<div className='text-2xl text-blue-500'>{time} seconds</div>
-					<Icon
-						className='text-4xl hover:text-green-600'
+					<div className="text-2xl text-blue-500">{time} seconds</div>
+					<CustomIcon
+						className="text-4xl hover:text-green-600"
 						onClick={() => toggleTime('up')}
 						label={<IoAddCircleOutline />}
 					/>
 				</div>
-				<div className='flex items-center gap-4'>
-					<Button
-						className='text-lg hover:text-green-600 hover:border-green-600'
+				<div className="flex items-center gap-4">
+					<CustomButton
+						className="text-lg hover:text-green-600 hover:border-green-600"
 						disabled={isRunning || time === 0}
 						onClick={start}
-						label='Start'
+						label="Start"
 					/>
-					<Button
-						className='text-lg hover:text-red-600 hover:border-red-600'
+					<CustomButton
+						className="text-lg hover:text-red-600 hover:border-red-600"
 						disabled={!isRunning}
 						onClick={stop}
-						label='Stop'
+						label="Stop"
 					/>
-					<Button
-						className='text-lg hover:text-yellow-600 hover:border-yellow-600'
+					<CustomButton
+						className="text-lg hover:text-yellow-600 hover:border-yellow-600"
 						disabled={!isRunning && time === 0}
 						onClick={reset}
-						label='Reset'
+						label="Reset"
 					/>
 				</div>
-			</PageContent>
+			</CustomContainer>
 		</main>
 	)
 }

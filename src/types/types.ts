@@ -1,26 +1,28 @@
-export type AppLayoutProps = {
+export type LayoutProps = {
 	children: React.ReactNode
 }
 
 export type ElementProps = {
+	children?: React.ReactNode
 	className?: string
 	disabled?: boolean
-	open?: boolean
-	onClick?: () => void
 	label?: React.ReactNode
-	children?: React.ReactNode
+	open?: boolean
+	ref?: React.RefObject<HTMLElement>
+	type?: string
+	onClick?: () => void
 }
 
 export type WindowSizeProps = {
-	width: number | undefined
 	height: number | undefined
+	width: number | undefined
 }
 
 export type CountdownProps = {
-	timeRef: React.MutableRefObject<NodeJS.Timeout | null>
-	time: number
-	setTime: React.Dispatch<React.SetStateAction<number>>
+	direction: 'up' | 'down'
 	isRunning: boolean
 	setIsRunning: React.Dispatch<React.SetStateAction<boolean>>
-	direction: 'up' | 'down'
+	setTime: React.Dispatch<React.SetStateAction<number>>
+	timeRef: React.MutableRefObject<NodeJS.Timeout | null>
+	time: number
 }

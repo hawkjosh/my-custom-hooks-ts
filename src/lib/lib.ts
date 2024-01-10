@@ -8,6 +8,10 @@ export const menuLinks = [
 		href: '/countdown'
 	},
 	{
+		name: 'useArray',
+		href: '/array'
+	},
+	{
 		name: 'TEST',
 		href: '/test'
 	}

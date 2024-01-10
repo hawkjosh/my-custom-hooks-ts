@@ -61,14 +61,34 @@ html {
 
 		& main {
 			@apply w-full max-w-screen-xl mx-auto min-h-screen bg-slate-700 p-3 place-items-center flex flex-col gap-8;
-
-			& .PageTitle {
-				@apply text-3xl font-bold text-yellow-400;
-			}
-
-			& .PageContent {
-				@apply flex flex-col place-content-center place-items-center gap-4 border-2 w-3/4 mx-auto rounded-xl py-4 h-full min-h-[75vh];
-			}
 		}
 	}
 }
+
+/* Basic Custom Components */
+.CustomButton {
+	@apply px-3 py-1.5 border-2 rounded-md transition-all duration-300;
+	&.disabled {
+		@apply text-gray-500 border-gray-500 pointer-events-none;
+	}
+}
+
+.CustomContainer {
+	@apply flex flex-col place-content-center place-items-center gap-4 border-2 w-3/4 mx-auto rounded-xl py-4 h-full min-h-[75vh];
+}
+
+.CustomIcon {
+	@apply hover:scale-110 transition-all duration-300 cursor-pointer;
+	&.disabled {
+		@apply text-gray-500 pointer-events-none;
+	}
+}
+
+.CustomTitle {
+	@apply text-3xl font-bold text-yellow-400;
+}
+
+/* Advanced Custom Components */
+/* .CustomModal {
+	@apply ;
+} */

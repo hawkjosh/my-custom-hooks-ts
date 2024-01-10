@@ -2,14 +2,14 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { useMenuHandler, useNavEffects } from '@/utils/utils'
+import { useMenuEffects, useNavEffects } from '@/utils/utils'
 import { IoMenu } from 'react-icons/io5'
 import { menuLinks } from '@/lib/lib'
 
 export default function Navbar() {
 	const navbarRef = React.useRef<HTMLDivElement>(null)
 	const menuRef = React.useRef<HTMLDivElement>(null)
-	const { menuOpen, toggleMenu } = useMenuHandler(menuRef)
+	const { menuOpen, toggleMenu } = useMenuEffects(menuRef)
 	const { shrink } = useNavEffects(navbarRef)
 
 	const classWithShrink = (base: string) => (shrink ? `${base} shrink` : base)
