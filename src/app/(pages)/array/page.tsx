@@ -18,15 +18,25 @@ import { RxReset } from 'react-icons/rx'
 
 export default function Array() {
 	const [modalOpen, setModalOpen] = React.useState<boolean>(false)
-  const initialFormState: { option: string; idx1: string; idx2: string; val: string } = {
-    option: '',
-    idx1: '',
-    idx2: '',
-    val: ''
-  }
-	const [formData, setFormData] = React.useState<{ option: string; idx1: string; idx2: string; val: string }>(initialFormState)
+	const initialFormState: {
+		option: string
+		idx1: string
+		idx2: string
+		val: string
+	} = {
+		option: '',
+		idx1: '',
+		idx2: '',
+		val: ''
+	}
+	const [formData, setFormData] = React.useState<{
+		option: string
+		idx1: string
+		idx2: string
+		val: string
+	}>(initialFormState)
 
-  const resetForm = () => {
+	const resetForm = () => {
 		setFormData(initialFormState)
 	}
 
@@ -35,15 +45,16 @@ export default function Array() {
 	const handleModalClose = () => {
 		setModalOpen(false)
 		resetForm()
+		methods.reset()
 	}
 
 	const { array, methods } = useArray()
 
-  type ArrayOptions = {
-    label: string
-    value: number
-    action: () => void
-  }[]
+	type ArrayOptions = {
+		label: string
+		value: number
+		action: () => void
+	}[]
 
 	const arrOptions: ArrayOptions = [
 		{
@@ -93,13 +104,18 @@ export default function Array() {
 			value: 9,
 			action: () =>
 				methods.swap(parseInt(formData.idx1), parseInt(formData.idx2))
+		},
+		{
+			label: 'Reverse all',
+			value: 10,
+			action: () => methods.reverse()
 		}
 	]
 
-  type PositionsListOptions = {
-    label: number
-    value: number
-  }[]
+	type PositionsListOptions = {
+		label: number
+		value: number
+	}[]
 
 	const positionsList: PositionsListOptions = array.map((_, index) => ({
 		label: index + 1,
@@ -132,90 +148,87 @@ export default function Array() {
 			selectedAction.action()
 		}
 
-    resetForm()
+		resetForm()
 	}
 
 	return (
 		<main>
 			<CustomTitle label="useArray Example" />
-			<CustomContainer>
+			<CustomContainer className="relative">
 				<CustomButton
 					className="text-lg hover:text-yellow-400 hover:border-yellow-400"
 					label="Fun With Arrays"
 					onClick={handleModalOpen}
 				/>
-			</CustomContainer>
-			<CustomModal
-				open={modalOpen}
-				onClick={handleModalClose}
-			>
-				<div className="flex flex-col items-center w-4/5 gap-3">
-					<div className="relative flex items-center justify-center w-full p-3 text-4xl bg-red-500">
-						<div className="flex-1 text-center">[ {array.join(', ')} ]</div>
-						<CustomIcon
-							label={<RxReset />}
-							className="right-3 hover:text-yellow-400"
-							onClick={methods.reset}
-						/>
+				<CustomModal open={modalOpen} onClick={handleModalClose}>
+					<div className="flex flex-col items-center w-4/5 gap-3">
+						<div className="relative flex items-center justify-center w-full p-3 text-4xl bg-red-500">
+							<div className="flex-1 text-center">[ {array.join(', ')} ]</div>
+							<CustomIcon
+								label={<RxReset />}
+								className="right-3 hover:text-yellow-400"
+								onClick={methods.reset}
+							/>
+						</div>
+						<CustomForm onSubmit={handleFormSubmit} className="flex gap-3">
+							<CustomSelect
+								label="Options"
+								name="option"
+								options={arrOptions}
+								value={formData.option}
+								onChange={handleFormSelectChange}
+								placeholder="Select an option..."
+							/>
+							{[3, 6, 8, 9].includes(parseInt(formData.option)) && (
+								<CustomSelect
+									label="1st Position"
+									name="idx1"
+									options={positionsList}
+									value={formData.idx1}
+									onChange={handleFormSelectChange}
+									placeholder="Select position..."
+								/>
+							)}
+							{parseInt(formData.option) === 9 && (
+								<CustomSelect
+									label="2nd Position"
+									name="idx2"
+									options={positionsList.filter(
+										(position) => position.value !== parseInt(formData.idx1)
+									)}
+									value={formData.idx2}
+									onChange={handleFormSelectChange}
+									placeholder="Select position..."
+								/>
+							)}
+							{[1, 2, 3, 7, 8].includes(parseInt(formData.option)) && (
+								<CustomInput
+									label="Value"
+									name="val"
+									value={formData.val}
+									onChange={handleFormInputChange}
+									placeholder="Enter value..."
+								/>
+							)}
+							<CustomButton
+								label="Submit"
+								type="submit"
+								disabled={
+									formData.option === '' ||
+									(parseInt(formData.option) === 6 && formData.idx1 === '') ||
+									([1, 2, 7].includes(parseInt(formData.option)) &&
+										formData.val === '') ||
+									([3, 8].includes(parseInt(formData.option)) &&
+										(formData.idx1 === '' || formData.val === '')) ||
+									(parseInt(formData.option) === 9 &&
+										(formData.idx1 === '' || formData.idx2 === ''))
+								}
+								className="grid-col-5"
+							/>
+						</CustomForm>
 					</div>
-					<CustomForm onSubmit={handleFormSubmit} className="flex gap-3">
-						<CustomSelect
-							label="Options"
-							name="option"
-							options={arrOptions}
-							value={formData.option}
-							onChange={handleFormSelectChange}
-							placeholder="Select an option..."
-						/>
-						{[3, 6, 8, 9].includes(parseInt(formData.option)) && (
-							<CustomSelect
-								label="1st Position"
-								name="idx1"
-								options={positionsList}
-								value={formData.idx1}
-								onChange={handleFormSelectChange}
-								placeholder="Select position..."
-							/>
-						)}
-						{parseInt(formData.option) === 9 && (
-							<CustomSelect
-								label="2nd Position"
-								name="idx2"
-								options={positionsList.filter(
-									(position) => position.value !== parseInt(formData.idx1)
-								)}
-								value={formData.idx2}
-								onChange={handleFormSelectChange}
-								placeholder="Select position..."
-							/>
-						)}
-						{[1, 2, 3, 7, 8].includes(parseInt(formData.option)) && (
-							<CustomInput
-								label="Value"
-								name="val"
-								value={formData.val}
-								onChange={handleFormInputChange}
-								placeholder="Enter value..."
-							/>
-						)}
-						<CustomButton
-							label="Submit"
-							type="submit"
-							disabled={
-								formData.option === '' ||
-								(parseInt(formData.option) === 6 && formData.idx1 === '') ||
-								([1, 2, 7].includes(parseInt(formData.option)) &&
-									formData.val === '') ||
-								([3, 8].includes(parseInt(formData.option)) &&
-									(formData.idx1 === '' || formData.val === '')) ||
-								(parseInt(formData.option) === 9 &&
-									(formData.idx1 === '' || formData.idx2 === ''))
-							}
-							className="grid-col-5"
-						/>
-					</CustomForm>
-				</div>
-			</CustomModal>
+				</CustomModal>
+			</CustomContainer>
 		</main>
 	)
 }

@@ -20,7 +20,9 @@ export type WindowSizeProps = {
 
 export type CountdownProps = {
 	direction: 'up' | 'down'
+	endTime: number | null
 	isRunning: boolean
+	setEndTime: React.Dispatch<React.SetStateAction<number | null>>
 	setIsRunning: React.Dispatch<React.SetStateAction<boolean>>
 	setTime: React.Dispatch<React.SetStateAction<number>>
 	timeRef: React.MutableRefObject<NodeJS.Timeout | null>

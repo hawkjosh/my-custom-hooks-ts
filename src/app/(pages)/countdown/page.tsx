@@ -10,14 +10,24 @@ import {
 import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5'
 import { type CountdownProps } from '@/types/types'
 
-export default function Countdown() {
-	const { time, setTime, isRunning, start, stop, reset } = useCountdown()
+export default function Example() {
+	const { time, setTime, isRunning, startStop, reset } = useCountdown()
+
+	const formatTime = (ms: number) => {
+		let sDisplay = Math.floor((ms % 60000) / 1000)
+		let msDisplay = ms % 1000
+
+		return `${sDisplay.toString().padStart(2, '0')}:${msDisplay
+			.toString()
+			.padStart(3, '0')}`
+	}
 
 	const toggleTime = (direction: CountdownProps['direction']) => {
+		const increment = 1000
 		if (direction === 'up') {
-			setTime((t) => t + 1)
+			setTime((t) => t + increment)
 		} else if (direction === 'down' && time > 0) {
-			setTime((t) => t - 1)
+			setTime((t) => t - increment)
 		} else {
 			setTime(0)
 		}
@@ -34,7 +44,7 @@ export default function Countdown() {
 						onClick={() => toggleTime('down')}
 						label={<IoRemoveCircleOutline />}
 					/>
-					<div className="text-2xl text-blue-500">{time} seconds</div>
+					<div className="text-4xl text-blue-500">{formatTime(time)}</div>
 					<CustomIcon
 						className="text-4xl hover:text-green-600"
 						onClick={() => toggleTime('up')}
@@ -43,16 +53,14 @@ export default function Countdown() {
 				</div>
 				<div className="flex items-center gap-4">
 					<CustomButton
-						className="text-lg hover:text-green-600 hover:border-green-600"
-						disabled={isRunning || time === 0}
-						onClick={start}
-						label="Start"
-					/>
-					<CustomButton
-						className="text-lg hover:text-red-600 hover:border-red-600"
-						disabled={!isRunning}
-						onClick={stop}
-						label="Stop"
+						className={`text-lg ${
+							isRunning
+								? 'text-red-500 border-red-500 hover:text-red-600 hover:border-red-600'
+								: 'hover:text-green-600 hover:border-green-600'
+						}`}
+						disabled={time === 0}
+						onClick={startStop}
+						label={isRunning ? 'Stop' : 'Start'}
 					/>
 					<CustomButton
 						className="text-lg hover:text-yellow-600 hover:border-yellow-600"

@@ -70,7 +70,7 @@ export function CustomModal({
 					/>
 					<div
 						className={cn(
-							`bg-slate-500 rounded-xl w-3/4 max-w-screen-xl h-3/4 z-10 p-2 absolute place-content-center place-items-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ${
+							`bg-slate-500 rounded-lg w-full h-full z-10 p-2 absolute place-content-center place-items-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ${
 								open ? 'flex' : 'hidden'
 							}`,
 							className

@@ -30,8 +30,9 @@ export default function useArray() {
 				array[index1],
 				...array.slice(index2 + 1)
 			]),
+		reverse: () => setArray([...array].reverse()),
 		reset: () => setArray(initialArray)
 	}
 
-  return { array, methods }
+	return { array, methods }
 }

@@ -12,6 +12,14 @@ export const menuLinks = [
 		href: '/array'
 	},
 	{
+		name: 'useEventListener',
+		href: '/event-listener'
+	},
+	{
+		name: 'useLocalStorage',
+		href: '/local-storage'
+	},
+	{
 		name: 'TEST',
 		href: '/test'
 	}
